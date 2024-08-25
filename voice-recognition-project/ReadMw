@@ -1,0 +1,88 @@
+Voice Recognition Emergency System
+This project is designed to enhance safety by providing a voice-activated emergency response system and geofencing capabilities. It leverages technologies like Twilio, WebSockets, and the Google Web Speech API, and is hosted on Vercel.
+
+Technologies Used
+Node.js & Express.js: For server-side logic and handling API requests.
+Twilio: To send SMS alerts to emergency contacts.
+WebSockets: For real-time communication between the client and server.
+Google Web Speech API: For voice recognition and triggering emergency alerts.
+Vercel: Hosting platform for deploying the project.
+HTML/CSS/JavaScript: For the front-end user interface.
+dotenv: For managing environment variables.
+Getting Started
+Prerequisites
+Ensure you have the following installed on your system:
+
+Node.js (v12 or higher)
+npm (Node Package Manager)
+Twilio Setup
+Sign up for Twilio: Twilio.
+
+Create a new project: After signing up, create a new project in your Twilio dashboard.
+
+Get API Credentials:
+
+Account SID
+Auth Token
+Twilio Phone Number (for sending SMS)
+Environment Variables: Create a .env file in the root directory of your project and add the following:
+
+plaintext
+Copy code
+API_KEY='YOUR_TWILIO_ACCOUNT_SID'
+API_TOKEN='YOUR_TWILIO_AUTH_TOKEN'
+Replace YOUR_TWILIO_ACCOUNT_SID and YOUR_TWILIO_AUTH_TOKEN with your actual Twilio credentials.
+
+Installation
+Clone the Repository:
+
+bash
+Copy code
+git clone https://github.com/your-username/voice-recognition-emergency-system.git
+cd voice-recognition-emergency-system
+Install Dependencies:
+
+bash
+Copy code
+npm install
+Running the Project Locally
+Start the Server:
+
+bash
+Copy code
+node server.js
+The server will start on http://localhost:3000.
+
+Access the Application: Open your web browser and go to http://localhost:3000 to use the application.
+
+Hosting on Vercel
+This project is hosted on Vercel. You can access the live version by visiting:
+
+[Your Vercel Project URL]
+Please note that since we are using free APIs, including Twilio and Google Web Speech API, there may be some discrepancies or limitations, such as:
+
+Twilio: Limited free SMS messages.
+Google Web Speech API: Browser compatibility issues or limitations in continuous speech recognition.
+Key Features
+Voice Recognition (Google Web Speech API):
+The system uses the Google Web Speech API to listen for the keyword "help." When detected three times, it triggers an SMS alert with your location.
+Geofencing:
+Set a safe zone (latitude, longitude, radius). The system activates voice recognition automatically if you move outside this zone.
+Project Structure
+server.js: Main server file, handles routing, Twilio integration, and WebSocket connections.
+web.js: Client-side JavaScript, manages voice recognition, geofencing, and real-time communication.
+style.css: Styling for the user interface.
+index.html: Main HTML file for the application.
+Additional Notes
+Twilio Usage: Ensure your Twilio account has enough credit to send SMS messages. The free tier is limited.
+WebSockets: This project uses WebSockets for real-time communication between the client and server. Ensure your server supports WebSockets and that the necessary ports are open.
+Google Web Speech API: This API is integrated into the browser via webkitSpeechRecognition. Ensure you are using a compatible browser like Google Chrome.
+Troubleshooting
+Voice Recognition Not Working: Ensure you are using Google Chrome and that microphone permissions are enabled.
+SMS Not Sending: Check your Twilio credentials and ensure your account has sufficient credit.
+Geofencing Not Triggering: Ensure you have correctly set the latitude, longitude, and radius for the geofence.
+Contributing
+Feel free to fork this repository and submit pull requests. Contributions are welcome!
+
+License
+This project is licensed under the MIT License.
