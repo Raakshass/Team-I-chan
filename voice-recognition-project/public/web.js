@@ -1,11 +1,13 @@
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
+const closeBtn = document.getElementById('close-btn'); // New close button
 const statusText = document.getElementById('status');
 const transcriptDiv = document.getElementById('transcript');
 
 let recognition;
 let recognizing = false;
 let helpCount = 0;
+let socket;
 
 if ('webkitSpeechRecognition' in window) {
     recognition = new webkitSpeechRecognition();
@@ -36,7 +38,7 @@ if ('webkitSpeechRecognition' in window) {
                 helpCount++;
                 statusText.innerText = `"Help" recognized ${helpCount}/3 times`;
                 if (helpCount >= 3) {
-                    sendLocation();
+                    getLocationAndSend(); // Send location immediately
                     helpCount = 0; // Reset after sending location
                 }
             }
@@ -51,8 +53,9 @@ if ('webkitSpeechRecognition' in window) {
     };
 
     recognition.onend = () => {
-        recognizing = false;
-        statusText.innerText = 'Voice recognition stopped.';
+        if (recognizing) {
+            recognition.start(); // Restart recognition if it's still supposed to be running
+        }
     };
 } else {
     statusText.innerText = 'Speech recognition not supported in this browser.';
@@ -61,38 +64,76 @@ if ('webkitSpeechRecognition' in window) {
 startBtn.addEventListener('click', () => {
     if (!recognizing && recognition) {
         helpCount = 0; // Reset the help counter
+        recognizing = true;
         recognition.start();
+        openWebSocketConnection(); // Open WebSocket connection
     }
 });
 
 stopBtn.addEventListener('click', () => {
     if (recognizing && recognition) {
+        recognizing = false;
         recognition.stop();
+        if (socket) {
+            socket.close(); // Close WebSocket connection
+        }
     }
 });
 
-function sendLocation() {
+closeBtn.addEventListener('click', () => {
+    if (recognizing && recognition) {
+        recognizing = false;
+        recognition.stop();
+    }
+    if (socket) {
+        socket.close(); // Close WebSocket connection
+    }
+    statusText.innerText = 'Application closed.';
+});
+
+function getLocationAndSend() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             const { latitude, longitude } = position.coords;
-            console.log(`Location: ${latitude}, ${longitude}`);
-            fetch('/send-location', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ latitude, longitude })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Emergency location sent to contacts!');
-                statusText.innerText = 'Emergency location sent.';
-            })
-            .catch(error => {
-                console.error('Error sending location:', error);
-                statusText.innerText = 'Error sending location.';
-            });
+            sendLocation(latitude, longitude);
+        }, error => {
+            console.error('Error getting location:', error);
+            statusText.innerText = 'Error getting location.';
+        }, {
+            enableHighAccuracy: true,
+            timeout: 5000
         });
     } else {
         console.log('Geolocation is not supported by this browser.');
         statusText.innerText = 'Geolocation is not supported by this browser.';
     }
+}
+
+function sendLocation(latitude, longitude) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+        const locationData = JSON.stringify({ latitude, longitude });
+        socket.send(locationData);
+        statusText.innerText = 'Location sent via WebSocket.';
+    } else {
+        statusText.innerText = 'WebSocket connection is not open.';
+    }
+}
+
+function openWebSocketConnection() {
+    socket = new WebSocket('ws://localhost:3000');
+
+    socket.onopen = () => {
+        console.log('WebSocket connection opened');
+        statusText.innerText = 'WebSocket connection opened.';
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        statusText.innerText = 'WebSocket error occurred.';
+    };
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed');
+        statusText.innerText = 'WebSocket connection closed.';
+    };
 }
