@@ -38,19 +38,20 @@ Clone the Repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/voice-recognition-emergency-system.git
+<code>git clone https://github.com/your-username/voice-recognition-emergency-system.git<code/>
 cd voice-recognition-emergency-system
 Install Dependencies:
 
 bash
 Copy code
-npm install
+
+<code>npm install<code/>
 Running the Project Locally
 Start the Server:
 
 bash
 Copy code
-node server.js
+<code>node server.js<code/>
 The server will start on http://localhost:3000.
 
 Access the Application: Open your web browser and go to http://localhost:3000 to use the application.
