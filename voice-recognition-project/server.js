@@ -43,7 +43,7 @@ wss.on('connection', (ws) => {
 
             client.messages.create({
                 body: `Emergency! User ${name} (Age: ${age}) is in need of help. Location: https://www.google.com/maps?q=${latitude},${longitude}`,
-                from: '+12512202081', // Replace with your Twilio number
+                from: process.env.NUMBER_TOKEN , // Replace with your Twilio number
                 to: contact // Send SMS to the provided contact number
             })
             .then(message => console.log(`Message sent to ${contact}: ${message.sid}`))
