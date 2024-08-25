@@ -5,10 +5,10 @@ const twilio = require('twilio');
 const WebSocket = require('ws');
 const app = express();
 
-console.log(process.env.API_KEY);
+
 const accountSid =process.env.API_KEY  // Replace with your Twilio Account SID
 const authToken = process.env.API_TOKEN
-console.log(accountSid); // Replace with your Twilio Auth Token
+// Replace with your Twilio Auth Token
 const client = twilio(accountSid, authToken);
 
 app.use(express.json());
