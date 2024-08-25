@@ -9,11 +9,58 @@
 <body>
     <div class="container">
         <h1>Voice Recognition Emergency System</h1>
-        <button id="start-btn">Start</button>
-        <button id="stop-btn">Stop</button>
-        <p id="status">Click "Start" to begin voice recognition.</p>
-        <div id="transcript">Transcript will appear here...</div>
+        
+        <!-- User Onboarding Section -->
+        <div id="onboarding">
+            <h2>User Onboarding</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Enter your age">
+            
+            <label for="contact">Emergency Contact:</label>
+            <input type="text" id="contact" placeholder="Enter contact number">
+            
+            <button id="save-user-info">Save Information</button>
+        </div>
+        
+        <!-- Geofence Toggle and Settings -->
+        <div id="geofence-section" class="hidden">
+            <label for="geofence-toggle">Enable Geofencing:</label>
+            <input type="checkbox" id="geofence-toggle">
+            
+            <div id="geofence-settings" class="hidden">
+                <label for="geofence-lat">Geofence Latitude:</label>
+                <input type="number" id="geofence-lat" step="any" placeholder="Enter latitude">
+                
+                <label for="geofence-lng">Geofence Longitude:</label>
+                <input type="number" id="geofence-lng" step="any" placeholder="Enter longitude">
+                
+                <label for="geofence-radius">Geofence Radius (meters):</label>
+                <input type="number" id="geofence-radius" placeholder="Enter radius in meters">
+                
+                <button id="save-geofence">Save Geofence</button>
+            </div>
+        </div>
+        
+        <!-- Emergency System Controls -->
+        <div id="emergency-system" class="hidden">
+            <button id="start-btn">Start</button>
+            <button id="stop-btn">Stop</button>
+            <p id="status">Click "Start" to begin voice recognition.</p>
+            <div id="transcript">Transcript will appear here...</div>
+        </div>
+        
+        <!-- Camera Feed -->
+        <div id="camera-feed" class="hidden">
+            <video id="video" autoplay playsinline></video>
+        </div>
     </div>
+
+    <!-- Popup Notification -->
+    <div id="popup"></div>
+    
     <script src="web.js"></script>
 </body>
 </html>

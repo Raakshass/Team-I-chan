@@ -29,6 +29,73 @@ h1 {
     font-weight: 700;
 }
 
+/* Geofencing Section */
+#geofence-section {
+    margin-top: 20px;
+}
+
+#geofence-section label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#geofence-toggle {
+    margin-left: 10px;
+}
+
+#geofence-settings.hidden {
+    display: none;
+}
+
+#geofence-settings {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+#geofence-settings label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+#geofence-settings input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Onboarding Section */
+#onboarding label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+#onboarding input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 button {
     background-color: #e91e63;
     color: white;
@@ -69,6 +136,17 @@ p {
     display: none;
 }
 
+/* Camera Feed */
+#camera-feed {
+    margin-top: 20px;
+}
+
+#camera-feed video {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
 .container {
     animation: fadeIn 1.5s ease-in-out;
 }
@@ -76,4 +154,31 @@ p {
 @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(-20px); }
     100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Pop-up Notification */
+#popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff0000;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it appears above other elements */
+    animation: fadeIn 0.5s, fadeOut 0.5s 4.5s; /* Fade out after 4.5 seconds */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
 }
