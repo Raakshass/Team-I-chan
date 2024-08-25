@@ -4,8 +4,8 @@ const twilio = require('twilio');
 const app = express();
 
 // Twilio configuration
-const accountSid = 'AC3f2e7c40f812fbb24471'; // Replace with your Twilio Account SID
-const authToken = '3cb0d3afa12973dc2aa2285296e'; // Replace with your Twilio Auth Token
+const accountSid = 'AC3f2e7c4471'; // Replace with your Twilio Account SID
+const authToken = '3cb0d3a6e'; // Replace with your Twilio Auth Token
 const client = twilio(accountSid, authToken);
 
 const emergencyContacts = [
